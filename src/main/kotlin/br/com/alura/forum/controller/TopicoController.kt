@@ -3,7 +3,9 @@ package br.com.alura.forum.controller
 import br.alura.com.forum.model.Curso
 import br.alura.com.forum.model.Topico
 import br.alura.com.forum.model.Usuario
+import br.com.alura.forum.service.TopicoService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
@@ -13,35 +15,20 @@ import java.util.*
 
 
 
-class TopicoController {
+class TopicoController(private val service: TopicoService) {
 
-        @GetMapping
-        fun listar(): List<Topico>{
-            val  topico = Topico (
-                id= 1,
-                titulo = "Duvida Kotlin" ,
-                mensagem = "Variaveis no Kotlin",
-                curso = Curso(
-                        id = 1 ,
-                        nome= "Kotlin",
-                        categoria = "Programacao"
+    @GetMapping
+    fun listar(): List<Topico> {
 
-                ) ,
-                autor =  Usuario(
+        return service.listar()
 
-                    id= 1 ,
-                    nome= " Mizael julio" ,
-                    email = "Mizael@gamil.com"
+    }
 
-                )
-            )
+    @GetMapping("/{id}")
+    fun buscarPorId(@PathVariable id: Long ) : Topico {
 
+        return service.buscarPorId(id)
 
-         return Arrays.asList(topico,topico,topico)
-
-        }
-
-
-
+    }
 
 }
