@@ -1,4 +1,4 @@
-package br.alura.com.forum.model
+package model
 
 
 data class Curso (
