@@ -5,6 +5,7 @@ import br.com.alura.forum.dto.NovoTopicoForm
 import br.com.alura.forum.dto.TopicoPorCategoriaDto
 import br.com.alura.forum.dto.TopicoView
 import br.com.alura.forum.service.TopicoService
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
@@ -21,10 +22,12 @@ import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/topicos")
+@SecurityRequirement(name ="bearerAuth")
+
 class TopicoController(private val service: TopicoService) {
 
     @GetMapping
-    @Cacheable("topicos")
+    @Cacheable(cacheNames = ["topicos"] , key = "#root.method.name")
     fun listar(
             @RequestParam(required = false) nomeCurso: String?,
             @PageableDefault(size = 5, sort = ["dataCriacao"], direction = Sort.Direction.DESC) paginacao: Pageable
