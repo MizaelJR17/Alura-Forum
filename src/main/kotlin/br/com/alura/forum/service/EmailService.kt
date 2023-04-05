@@ -13,8 +13,8 @@ class EmailService(
    fun notificar(emailAutor:String){
         val message = SimpleMailMessage()
         message.setFrom("zcgamerbr@gmail.com")
-        message.setSubject("{Luciana Dev} Você passou !!!")
-        message.setText("Quer casar comigo ????")
+        message.setSubject("{Alura} Resposta Recebida")
+        message.setText("Olá , seu Tópico foi respondido. Vamos la conferir?")
         message.setTo(emailAutor)
 
        javaMailSender.send(message)
